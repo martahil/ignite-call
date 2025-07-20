@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import { api } from '../../lib/axios'
 
 const registerFormSchema = z.object({
   username: z
@@ -23,9 +24,9 @@ const registerFormSchema = z.object({
 type RegisterFormData = z.infer<typeof registerFormSchema>
 
 export default function Register() {
-  const { 
-    register, 
-    handleSubmit, 
+  const {
+    register,
+    handleSubmit,
     setValue,
     formState: { errors, isSubmitting }
   } = useForm<RegisterFormData>({
@@ -44,29 +45,36 @@ export default function Register() {
   }, [router.query?.username, setValue])
 
   async function handleRegister(data: RegisterFormData) {
-    console.log(data)
+    try {
+      await api.post('/users', {
+        name: data.name,
+        username: data.username
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
     <Container>
       <Header>
         <Heading as='strong'> Welcome to Ignite Call</Heading>
-         <Text>
+        <Text>
           We need some information to create your profile! Oh, and you can edit this information later.
-         </Text>
+        </Text>
 
-         <MultiStep size={4} currentStep={1} />
+        <MultiStep size={4} currentStep={1} />
       </Header>
 
       <Form as='form' onSubmit={handleSubmit(handleRegister)}>
         <label>
           <Text size='sm'>Username</Text>
-          <TextInput 
-            prefix='ignite.com/' 
-            placeholder='your-username' 
-            {...register('username')} 
+          <TextInput
+            prefix='ignite.com/'
+            placeholder='your-username'
+            {...register('username')}
           />
-        
+
           {errors.username && (
             <FormError size='sm'>
               {errors.username.message}
@@ -76,9 +84,9 @@ export default function Register() {
 
         <label>
           <Text size='sm'>Full name</Text>
-          <TextInput 
-            placeholder='Your name' 
-            {...register('name')} 
+          <TextInput
+            placeholder='Your name'
+            {...register('name')}
           />
 
           {errors.name && (
