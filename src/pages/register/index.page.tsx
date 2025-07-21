@@ -51,6 +51,8 @@ export default function Register() {
         name: data.name,
         username: data.username
       })
+
+      await router.push(`/register/connect-calendar`)
     } catch (err) {
       if (err instanceof AxiosError && err.response?.data?.message) {
         alert(err.response.data.message)
@@ -64,7 +66,7 @@ export default function Register() {
   return (
     <Container>
       <Header>
-        <Heading as='strong'> Welcome to Ignite Call</Heading>
+        <Heading as='strong'>Welcome to Ignite Call</Heading>
         <Text>
           We need some information to create your profile! Oh, and you can edit this information later.
         </Text>
