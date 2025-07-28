@@ -1,12 +1,11 @@
 import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
 import { Container, Header } from '../styles'
 import { ArrowRight, Check } from 'phosphor-react'
-import { api } from '../../lib/axios'
 import { AuthError, ConnectBox, ConnectItem } from './styles'
 import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 
-export default function Register() {
+export default function ConnectCalendar() {
   const session = useSession()
   const router = useRouter()
 
@@ -22,7 +21,8 @@ export default function Register() {
       <Header>
         <Heading as='strong'>Connect your calendar!</Heading>
         <Text>
-          Connect your calendar to automatically check for busy times and new events as they are scheduled.
+          Connect your calendar to automatically check for busy times and new events 
+          as they are scheduled.
         </Text>
 
         <MultiStep size={4} currentStep={2} />
