@@ -10,10 +10,14 @@ export default function ConnectCalendar() {
   const router = useRouter()
 
   const hasAuthError = !!router.query.error
-  const isSignedIn = session.status === 'authenticated'
+  const isSignedId = session.status === 'authenticated'
 
   async function handleConnectCalendar() {
     await signIn('google')
+  }
+
+  async function handleNavigateToNextStep() {
+    await router.push('/register/time-intervals')
   }
 
   return (
@@ -34,7 +38,7 @@ export default function ConnectCalendar() {
             Google Calendar
           </Text>
           {
-            isSignedIn ? (
+            isSignedId ? (
               <Button size='sm' disabled>
                 Connected
                 <Check />
@@ -63,7 +67,7 @@ export default function ConnectCalendar() {
           <Text>{JSON.stringify(session.data)}</Text>
         </pre> */}
 
-        <Button type='submit' disabled={!isSignedIn}>
+        <Button onClick={handleNavigateToNextStep} type='submit' disabled={!isSignedId}>
           Next step
           <ArrowRight />
         </Button>
