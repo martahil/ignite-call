@@ -52,3 +52,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/b
 - adapter (NextAuth)
 - tanstack/react-query
 - docker
+- next-seo

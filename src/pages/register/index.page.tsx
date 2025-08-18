@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { api } from '../../lib/axios'
 import { AxiosError } from 'axios'
+import { NextSeo } from 'next-seo'
 
 const registerFormSchema = z.object({
   username: z
@@ -32,9 +33,9 @@ export default function Register() {
     formState: { errors, isSubmitting }
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerFormSchema),
-    defaultValues: {
-      username: 'martahil',
-    },
+    // defaultValues: {
+    //   username: 'martahil',
+    // },
   })
 
   const router = useRouter()
@@ -54,7 +55,7 @@ export default function Register() {
 
       await router.push(`/register/connect-calendar`)
     } catch (err) {
-      if (err instanceof AxiosError && err.response?.data?.message) {
+      if (err instanceof AxiosError && err?.response?.data?.message) {
         alert(err.response.data.message)
         return
       }
@@ -64,51 +65,56 @@ export default function Register() {
   }
 
   return (
-    <Container>
-      <Header>
-        <Heading as='strong'>Welcome to Ignite Call</Heading>
-        <Text>
-          We need some information to create your profile! Oh, and you can edit this information later.
-        </Text>
+    <>
+      <NextSeo
+        title='Sign up | Ignite Call'
+      />
+      <Container>
+        <Header>
+          <Heading as='strong'>Welcome to Ignite Call</Heading>
+          <Text>
+            We need some information to create your profile! Oh, and you can edit this information later.
+          </Text>
 
-        <MultiStep size={4} currentStep={1} />
-      </Header>
+          <MultiStep size={4} currentStep={1} />
+        </Header>
 
-      <Form as='form' onSubmit={handleSubmit(handleRegister)}>
-        <label>
-          <Text size='sm'>Username</Text>
-          <TextInput
-            prefix='ignite.com/'
-            placeholder='your-username'
-            {...register('username')}
-          />
+        <Form as='form' onSubmit={handleSubmit(handleRegister)}>
+          <label>
+            <Text size='sm'>Username</Text>
+            <TextInput
+              prefix='ignite.com/'
+              placeholder='your-username'
+              {...register('username')}
+            />
 
-          {errors.username && (
-            <FormError size='sm'>
-              {errors.username.message}
-            </FormError>
-          )}
-        </label>
+            {errors.username && (
+              <FormError size='sm'>
+                {errors.username.message}
+              </FormError>
+            )}
+          </label>
 
-        <label>
-          <Text size='sm'>Full name</Text>
-          <TextInput
-            placeholder='Your name'
-            {...register('name')}
-          />
+          <label>
+            <Text size='sm'>Full name</Text>
+            <TextInput
+              placeholder='Your name'
+              {...register('name')}
+            />
 
-          {errors.name && (
-            <FormError size='sm'>
-              {errors.name.message}
-            </FormError>
-          )}
-        </label>
+            {errors.name && (
+              <FormError size='sm'>
+                {errors.name.message}
+              </FormError>
+            )}
+          </label>
 
-        <Button type='submit' disabled={isSubmitting}>
-          Next step
-          <ArrowRight />
-        </Button>
-      </Form>
-    </Container>
+          <Button type='submit' disabled={isSubmitting}>
+            Next step
+            <ArrowRight />
+          </Button>
+        </Form>
+      </Container>
+    </>
   )
 }
