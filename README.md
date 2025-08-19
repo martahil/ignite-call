@@ -53,3 +53,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/b
 - tanstack/react-query
 - docker
 - next-seo
+- neon.tech
+- Vercel
