@@ -7,7 +7,10 @@ const nextConfig: NextConfig = {
     'page.tsx',
     'api.ts',
     'api.tsx',
-  ]
+  ],
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;

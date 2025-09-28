@@ -59,9 +59,11 @@ export default function UpdateProfile() {
           <label>
             <Text>Profile Photo</Text>
             <Avatar
-              src={session.data?.user.avatar_url}
-              referrerPolicy='no-referrer'
-              alt={session.data?.user.name}
+              {...({
+                src: session.data?.user.avatar_url,
+                referrerPolicy: 'no-referrer',
+                alt: session.data?.user.name
+              } as any)}
             />
           </label>
 

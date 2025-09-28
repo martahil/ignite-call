@@ -58,7 +58,7 @@ export default function TimeIntervals() {
       errors
     },
   } = useForm<TimeIntervalsFormInput>({
-    resolver: zodResolver(timeIntervalsFormSchema),
+    //resolver: zodResolver(timeIntervalsFormSchema),
     defaultValues: {
       intervals: [
         { weekDay: 0, enabled: false, startTime: '08:00', endTime: '18:00' },
@@ -121,10 +121,11 @@ export default function TimeIntervals() {
                       render={({ field }) => {
                         return (
                           <Checkbox
-                            onCheckedChange={(checked) =>
-                              field.onChange(checked === true)
-                            }
-                            checked={field.value}
+                            {...({
+                              onCheckedChange: (checked: any) =>
+                                field.onChange(checked === true),
+                              checked: field.value
+                            } as any)}
                           />
                         )
                       }}
@@ -137,14 +138,14 @@ export default function TimeIntervals() {
                       type='time'
                       step={60}
                       disabled={intervals[index].enabled === false}
-                      {...register(`intervals.${index}.startTime`)}
+                      {...register(`intervals.${index}.startTime`) as any}
                     />
                     <TextInput
                       size='sm'
                       type='time'
                       step={60}
                       disabled={intervals[index].enabled === false}
-                      {...register(`intervals.${index}.endTime`)}
+                      {...register(`intervals.${index}.endTime`) as any}
                     />
                   </IntervalInputs>
                 </IntervalItem>

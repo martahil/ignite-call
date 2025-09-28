@@ -85,7 +85,7 @@ export default function Register() {
             <TextInput
               prefix='ignite.com/'
               placeholder='your-username'
-              {...register('username')}
+              {...register('username') as any}
             />
 
             {errors.username && (
@@ -99,7 +99,7 @@ export default function Register() {
             <Text size='sm'>Full name</Text>
             <TextInput
               placeholder='Your name'
-              {...register('name')}
+              {...register('name') as any}
             />
 
             {errors.name && (

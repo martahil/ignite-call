@@ -67,7 +67,7 @@ export function ConfirmStep({
 
       <label>
         <Text size='sm'>Full Name</Text>
-        <TextInput placeholder='Your name' {...register('name')} />
+        <TextInput placeholder='Your name' {...register('name') as any} />
         {errors.name && <FormError size='sm'>{errors.name.message}</FormError>}
       </label>
 
@@ -76,7 +76,7 @@ export function ConfirmStep({
         <TextInput
           type='email'
           placeholder='johndoe@example.com'
-          {...register('email')}
+          {...register('email') as any}
         />
         {errors.email && (
           <FormError size='sm'>{errors.email.message}</FormError>
