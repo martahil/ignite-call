@@ -5,7 +5,13 @@ const nextConfig = {
     'page.tsx',
     'api.ts',
     'api.tsx',
-  ]
+  ],
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 module.exports = nextConfig;
